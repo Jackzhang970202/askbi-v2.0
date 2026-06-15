@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>月度考勤分析报告</title>
+    <link rel="icon" href="../shared/favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- 顶部标题 -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <div class="header-title">
+                    <h1>月度考勤分析报告</h1>
+                    <span>执行摘要</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="time-block">
+                    <span class="time" id="liveTime">--:--:--</span>
+                    <span class="date" id="liveDate">----年--月--日</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 核心指标 -->
+        <section class="kpi-bar">
+            <div class="kpi-item">
+                <span class="kpi-value" id="kpiTotal">0</span>
+                <span class="kpi-label">总人数</span>
+            </div>
+            <div class="kpi-divider"></div>
+            <div class="kpi-item">
+                <span class="kpi-value" id="kpiContrib">0<span class="unit">h</span></span>
+                <span class="kpi-label">人均贡献时长</span>
+            </div>
+            <div class="kpi-divider"></div>
+            <div class="kpi-item">
+                <span class="kpi-value" id="kpiBizTrip">0<span class="unit">%</span></span>
+                <span class="kpi-label">平均出差率</span>
+            </div>
+            <div class="kpi-divider"></div>
+            <div class="kpi-item">
+                <span class="kpi-value" id="kpiAfterWork">0<span class="unit">%</span></span>
+                <span class="kpi-label">下班一小时后打卡率</span>
+            </div>
+            <div class="kpi-divider"></div>
+            <div class="kpi-item">
+                <span class="kpi-value" id="kpiWeekend">0<span class="unit">%</span></span>
+                <span class="kpi-label">公休日打卡率</span>
+            </div>
+        </section>
+
+        <!-- 主内容区 -->
+        <main class="content">
+            <!-- 第一行：部门贡献时长对比 -->
+            <div class="row row-1">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>部门人均贡献时长对比</h3>
+                        <span class="card-tag">部门维度</span>
+                    </div>
+                    <div class="card-body" id="chart1"></div>
+                </div>
+            </div>
+
+            <!-- 第二行：两个图表 -->
+            <div class="row row-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>贡献时长分布</h3>
+                        <span class="card-tag">个人维度</span>
+                    </div>
+                    <div class="card-body" id="chart2"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>下班一小时后打卡率</h3>
+                        <span class="card-tag">部门维度</span>
+                    </div>
+                    <div class="card-body" id="chart4"></div>
+                </div>
+            </div>
+
+            <!-- 第三行：两个图表 -->
+            <div class="row row-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>公休日打卡率</h3>
+                        <span class="card-tag">事业部/职能部门维度</span>
+                    </div>
+                    <div class="card-body" id="chart3"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>出差率分布</h3>
+                        <span class="card-tag">事业部/销售部门维度</span>
+                    </div>
+                    <div class="card-body" id="chart5"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../shared/echarts.min.js"></script>
+    <script src="../shared/data.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script>
+    // 响应式缩放：基于2560×1440基准，自动适配屏幕
+    (function() {
+        var BASE_W = 2560, BASE_H = 1440;
+        var el = document.querySelector('.dashboard');
+        if (!el) return;
+        el.style.width = BASE_W + 'px';
+        el.style.height = BASE_H + 'px';
+        el.style.transformOrigin = '0 0';
+        function applyScale() {
+            var w = window.innerWidth, h = window.innerHeight;
+            var scale = Math.min(w / BASE_W, h / BASE_H, 1);
+            el.style.transform = 'scale(' + scale + ')';
+            // 居中
+            var offsetX = (w - BASE_W * scale) / 2;
+            var offsetY = (h - BASE_H * scale) / 2;
+            el.style.marginLeft = offsetX + 'px';
+            el.style.marginTop = offsetY + 'px';
+        }
+        window.addEventListener('resize', applyScale);
+        applyScale();
+    })();
+    </script>
+</body>
+</html>

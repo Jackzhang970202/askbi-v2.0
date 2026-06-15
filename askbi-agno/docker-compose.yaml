@@ -1,0 +1,78 @@
+# ============================================================
+# AskBI v1.3
+# 首次启动: docker-compose up -d --build
+# 改代码后: docker-compose restart
+# 迁移部署: 拷代码 + docker save askbi:1.3 | docker load
+# ============================================================
+
+services:
+  askbi-backend:
+    container_name: askbi-backend
+    image: askbi:1.3
+    build: .
+    ports:
+      - "${BACKEND_PORT:-8002}:8002"
+    volumes:
+      # 代码完全外挂，改代码后重启即可
+      - .:/app
+      # 数据持久化
+      - askbi_data:/app/data
+      - askbi_refer:/app/refer
+      - askbi_user_files:/app/user_upload_files
+      - askbi_reports:/app/report_files
+      - askbi_dashboards:/app/dashboard_files
+      - askbi_knowledge:/app/knowledge
+      - askbi_logs:/app/logs
+    environment:
+      - PYTHONIOENCODING=utf-8
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
+      - ASKBI_MODEL=${ASKBI_MODEL}
+      - ASKBI_API_KEY=${ASKBI_API_KEY}
+      - ASKBI_BASE_URL=${ASKBI_BASE_URL}
+      - ASKBI_DB_HOST=${DB_HOST}
+      - ASKBI_DB_PORT=${DB_PORT}
+      - ASKBI_DB_NAME=${DB_NAME}
+      - ASKBI_DB_USER=${DB_USER}
+      - ASKBI_DB_PASSWORD=${DB_PASSWORD}
+      - ASKBI_DB_SCHEMA=${DB_SCHEMA}
+      - ASKBI_APP_DB_SCHEMA=${APP_DB_SCHEMA}
+    command: >
+      sh -c "python backend_api_agno.py"
+    restart: unless-stopped
+    networks:
+      - askbi-network
+
+  askbi-frontend:
+    container_name: askbi-frontend
+    build: .
+    image: askbi:1.3
+    ports:
+      - "${FRONTEND_PORT:-8000}:8000"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONIOENCODING=utf-8
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
+      - REMOTE_BASE_URL=http://askbi-backend:8002
+    command: >
+      sh -c "cd /app/frontend && python proxy_server.py"
+    restart: unless-stopped
+    depends_on:
+      - askbi-backend
+    networks:
+      - askbi-network
+
+networks:
+  askbi-network:
+    driver: bridge
+
+volumes:
+  askbi_data:
+  askbi_refer:
+  askbi_user_files:
+  askbi_reports:
+  askbi_dashboards:
+  askbi_knowledge:
+  askbi_logs:

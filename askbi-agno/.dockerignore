@@ -1,0 +1,43 @@
+# ============================================================
+# AskBI v1.3 - Docker 忽略文件
+# ============================================================
+
+# 敏感配置 (通过 .env 传入容器，不打包进镜像)
+.env
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+
+# Node
+node_modules/
+frontend/dist/
+frontend/node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# 本地数据 (通过 Docker volumes 管理)
+data/
+refer/
+user_upload_files/
+report_files/
+dashboard_files/
+knowledge/
+logs/
+*.db
+*.sqlite
+
+# OS
+.DS_Store
+Thumbs.db

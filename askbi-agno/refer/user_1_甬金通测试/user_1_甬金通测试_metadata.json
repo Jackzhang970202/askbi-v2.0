@@ -1,0 +1,589 @@
+{
+  "tables": {
+    "test_ybj.ybj_item": {
+      "comment": "ybj_item 表",
+      "columns": [
+        {
+          "name": "item_id",
+          "type": "int",
+          "comment": null,
+          "precision": 10
+        },
+        {
+          "name": "item_code",
+          "type": "varchar",
+          "comment": null,
+          "length": 50
+        },
+        {
+          "name": "item_name",
+          "type": "varchar",
+          "comment": null,
+          "length": 255
+        },
+        {
+          "name": "full_name",
+          "type": "varchar",
+          "comment": "全称",
+          "length": 255
+        },
+        {
+          "name": "remark",
+          "type": "varchar",
+          "comment": "指标说明",
+          "length": 255
+        },
+        {
+          "name": "crt_user",
+          "type": "varchar",
+          "comment": null,
+          "length": 32
+        },
+        {
+          "name": "crt_time",
+          "type": "datetime",
+          "comment": null
+        },
+        {
+          "name": "mon",
+          "type": "varchar",
+          "comment": "1 月度  0 非",
+          "length": 1
+        },
+        {
+          "name": "quar",
+          "type": "varchar",
+          "comment": "是否季度指标",
+          "length": 1
+        },
+        {
+          "name": "year",
+          "type": "varchar",
+          "comment": "是否年度指标",
+          "length": 1
+        },
+        {
+          "name": "type",
+          "type": "varchar",
+          "comment": "指标类型1 基础指标  2  符合指标",
+          "length": 1
+        },
+        {
+          "name": "unit",
+          "type": "varchar",
+          "comment": "单位  1 亿元  2 % 3 人  4  家   直接存储 单位汉字",
+          "length": 5
+        },
+        {
+          "name": "secret_level",
+          "type": "varchar",
+          "comment": "保密等级 1-6",
+          "length": 3
+        },
+        {
+          "name": "rule",
+          "type": "varchar",
+          "comment": "计算规则",
+          "length": 255
+        },
+        {
+          "name": "used",
+          "type": "varchar",
+          "comment": "已使用系统",
+          "length": 255
+        },
+        {
+          "name": "show_flag",
+          "type": "varchar",
+          "comment": "是否展示 1 展示  0 不展示数据",
+          "length": 2
+        },
+        {
+          "name": "path",
+          "type": "varchar",
+          "comment": "指标路径",
+          "length": 512
+        },
+        {
+          "name": "p_id",
+          "type": "int",
+          "comment": "父指标",
+          "precision": 10
+        },
+        {
+          "name": "root_id",
+          "type": "int",
+          "comment": "根指标  从1 开始",
+          "precision": 10
+        },
+        {
+          "name": "is_leaf",
+          "type": "varchar",
+          "comment": "是否末级节点 1 是",
+          "length": 1
+        },
+        {
+          "name": "level",
+          "type": "varchar",
+          "comment": "层级  从0 开始",
+          "length": 2
+        },
+        {
+          "name": "rule_meta",
+          "type": "varchar",
+          "comment": "运算元素",
+          "length": 255
+        },
+        {
+          "name": "rule_calc",
+          "type": "varchar",
+          "comment": "运算公式  后台计算",
+          "length": 255
+        },
+        {
+          "name": "source",
+          "type": "varchar",
+          "comment": "来源",
+          "length": 2
+        },
+        {
+          "name": "sort",
+          "type": "int",
+          "comment": "排序",
+          "precision": 10
+        },
+        {
+          "name": "del_flag",
+          "type": "int",
+          "comment": "0 删除  1未删除",
+          "precision": 10
+        },
+        {
+          "name": "is_null_value",
+          "type": "varchar",
+          "comment": null,
+          "length": 255
+        },
+        {
+          "name": "limited_year",
+          "type": "varchar",
+          "comment": null,
+          "length": 255
+        },
+        {
+          "name": "data_table",
+          "type": "varchar",
+          "comment": null,
+          "length": 255
+        }
+      ],
+      "sample_data": [
+        {
+          "item_id": 640,
+          "item_code": "",
+          "item_name": "指标管理",
+          "full_name": "",
+          "remark": "",
+          "crt_user": "",
+          "crt_time": "2022-04-14 18:13:17",
+          "mon": "1",
+          "quar": "1",
+          "year": "1",
+          "type": "2",
+          "unit": "",
+          "secret_level": "",
+          "rule": "",
+          "used": "",
+          "show_flag": "1",
+          "path": "",
+          "p_id": null,
+          "root_id": 1,
+          "is_leaf": "0",
+          "level": "0",
+          "rule_meta": "",
+          "rule_calc": "",
+          "source": "",
+          "sort": 0,
+          "del_flag": 1,
+          "is_null_value": null,
+          "limited_year": null,
+          "data_table": null
+        },
+        {
+          "item_id": 641,
+          "item_code": null,
+          "item_name": "本外币存贷款",
+          "full_name": null,
+          "remark": null,
+          "crt_user": null,
+          "crt_time": "2024-02-26 16:00:30",
+          "mon": "1",
+          "quar": null,
+          "year": null,
+          "type": "1",
+          "unit": null,
+          "secret_level": null,
+          "rule": null,
+          "used": null,
+          "show_flag": "1",
+          "path": "1/",
+          "p_id": 1,
+          "root_id": 1,
+          "is_leaf": "0",
+          "level": "1",
+          "rule_meta": null,
+          "rule_calc": null,
+          "source": null,
+          "sort": null,
+          "del_flag": 1,
+          "is_null_value": null,
+          "limited_year": null,
+          "data_table": null
+        },
+        {
+          "item_id": 642,
+          "item_code": null,
+          "item_name": "居民存款",
+          "full_name": null,
+          "remark": null,
+          "crt_user": null,
+          "crt_time": "2024-02-26 16:00:30",
+          "mon": "1",
+          "quar": null,
+          "year": null,
+          "type": "1",
+          "unit": null,
+          "secret_level": null,
+          "rule": null,
+          "used": null,
+          "show_flag": "1",
+          "path": "1/",
+          "p_id": 1,
+          "root_id": 1,
+          "is_leaf": "0",
+          "level": "1",
+          "rule_meta": null,
+          "rule_calc": null,
+          "source": null,
+          "sort": null,
+          "del_flag": 1,
+          "is_null_value": null,
+          "limited_year": null,
+          "data_table": null
+        },
+        {
+          "item_id": 643,
+          "item_code": null,
+          "item_name": "企业存款",
+          "full_name": null,
+          "remark": null,
+          "crt_user": null,
+          "crt_time": "2024-02-26 16:00:30",
+          "mon": "1",
+          "quar": null,
+          "year": null,
+          "type": "1",
+          "unit": null,
+          "secret_level": null,
+          "rule": null,
+          "used": null,
+          "show_flag": "1",
+          "path": "1/",
+          "p_id": 1,
+          "root_id": 1,
+          "is_leaf": "0",
+          "level": "1",
+          "rule_meta": null,
+          "rule_calc": null,
+          "source": null,
+          "sort": null,
+          "del_flag": 1,
+          "is_null_value": null,
+          "limited_year": null,
+          "data_table": null
+        },
+        {
+          "item_id": 644,
+          "item_code": null,
+          "item_name": "广义政府存款",
+          "full_name": null,
+          "remark": null,
+          "crt_user": null,
+          "crt_time": "2024-02-26 16:00:30",
+          "mon": "1",
+          "quar": null,
+          "year": null,
+          "type": "1",
+          "unit": null,
+          "secret_level": null,
+          "rule": null,
+          "used": null,
+          "show_flag": "1",
+          "path": "1/",
+          "p_id": 1,
+          "root_id": 1,
+          "is_leaf": "0",
+          "level": "1",
+          "rule_meta": null,
+          "rule_calc": null,
+          "source": null,
+          "sort": null,
+          "del_flag": 1,
+          "is_null_value": null,
+          "limited_year": null,
+          "data_table": null
+        }
+      ],
+      "schema": "test_ybj"
+    },
+    "test_ybj.ybj_item_data": {
+      "comment": "指标数据表--宁波",
+      "columns": [
+        {
+          "name": "id",
+          "type": "int",
+          "comment": null,
+          "precision": 10
+        },
+        {
+          "name": "report_id",
+          "type": "int",
+          "comment": null,
+          "precision": 10
+        },
+        {
+          "name": "template_id",
+          "type": "int",
+          "comment": null,
+          "precision": 10
+        },
+        {
+          "name": "sheet_id",
+          "type": "int",
+          "comment": "sheetid",
+          "precision": 10
+        },
+        {
+          "name": "sheet_num",
+          "type": "int",
+          "comment": null,
+          "precision": 10
+        },
+        {
+          "name": "cell_id",
+          "type": "bigint",
+          "comment": "cell_id代表cell位置",
+          "precision": 19
+        },
+        {
+          "name": "item_id",
+          "type": "int",
+          "comment": null,
+          "precision": 10
+        },
+        {
+          "name": "item_name",
+          "type": "varchar",
+          "comment": "指标维度名称",
+          "length": 50
+        },
+        {
+          "name": "item_code",
+          "type": "varchar",
+          "comment": null,
+          "length": 255
+        },
+        {
+          "name": "filed_name",
+          "type": "varchar",
+          "comment": "单元格代码",
+          "length": 255
+        },
+        {
+          "name": "item_unit",
+          "type": "varchar",
+          "comment": "单位",
+          "length": 10
+        },
+        {
+          "name": "item_val",
+          "type": "varchar",
+          "comment": "维度值",
+          "length": 25
+        },
+        {
+          "name": "yea",
+          "type": "varchar",
+          "comment": "年 2021",
+          "length": 4
+        },
+        {
+          "name": "quart",
+          "type": "varchar",
+          "comment": "季度   1,2,3,4",
+          "length": 2
+        },
+        {
+          "name": "mon",
+          "type": "varchar",
+          "comment": "月份  2021-08",
+          "length": 10
+        },
+        {
+          "name": "source",
+          "type": "varchar",
+          "comment": "数据来源",
+          "length": 255
+        },
+        {
+          "name": "time_type",
+          "type": "varchar",
+          "comment": " 1 年  2 季度  3 月 ",
+          "length": 2
+        },
+        {
+          "name": "del_flag",
+          "type": "tinyint",
+          "comment": "0：未删除，1：已删除",
+          "precision": 3
+        },
+        {
+          "name": "is_null_value",
+          "type": "varchar",
+          "comment": "是否是空值，0 是，1 否",
+          "length": 255
+        },
+        {
+          "name": "limited_year",
+          "type": "varchar",
+          "comment": "是否限制当前年度，0 是，1 否",
+          "length": 255
+        },
+        {
+          "name": "indicator_name",
+          "type": "varchar",
+          "comment": "映射指标",
+          "length": 255
+        }
+      ],
+      "sample_data": [
+        {
+          "id": 208644,
+          "report_id": null,
+          "template_id": null,
+          "sheet_id": null,
+          "sheet_num": null,
+          "cell_id": null,
+          "item_id": 28,
+          "item_name": "本外币存款",
+          "item_code": null,
+          "filed_name": null,
+          "item_unit": "亿元",
+          "item_val": "5969.9",
+          "yea": "2024",
+          "quart": null,
+          "mon": "2024-01",
+          "source": "模拟数据",
+          "time_type": "3",
+          "del_flag": 0,
+          "is_null_value": null,
+          "limited_year": null,
+          "indicator_name": null
+        },
+        {
+          "id": 208645,
+          "report_id": null,
+          "template_id": null,
+          "sheet_id": null,
+          "sheet_num": null,
+          "cell_id": null,
+          "item_id": 29,
+          "item_name": "本外币存款：同比增速",
+          "item_code": null,
+          "filed_name": null,
+          "item_unit": "%",
+          "item_val": "14.28",
+          "yea": "2024",
+          "quart": null,
+          "mon": "2024-01",
+          "source": "模拟数据",
+          "time_type": "3",
+          "del_flag": 0,
+          "is_null_value": null,
+          "limited_year": null,
+          "indicator_name": null
+        },
+        {
+          "id": 208646,
+          "report_id": null,
+          "template_id": null,
+          "sheet_id": null,
+          "sheet_num": null,
+          "cell_id": null,
+          "item_id": 30,
+          "item_name": "本外币存款：同比增速:月均",
+          "item_code": null,
+          "filed_name": null,
+          "item_unit": "%",
+          "item_val": "8.87",
+          "yea": "2024",
+          "quart": null,
+          "mon": "2024-01",
+          "source": "模拟数据",
+          "time_type": "3",
+          "del_flag": 0,
+          "is_null_value": null,
+          "limited_year": null,
+          "indicator_name": null
+        },
+        {
+          "id": 208647,
+          "report_id": null,
+          "template_id": null,
+          "sheet_id": null,
+          "sheet_num": null,
+          "cell_id": null,
+          "item_id": 31,
+          "item_name": "本外币存款：当月增量",
+          "item_code": null,
+          "filed_name": null,
+          "item_unit": "亿元",
+          "item_val": "262.3",
+          "yea": "2024",
+          "quart": null,
+          "mon": "2024-01",
+          "source": "模拟数据",
+          "time_type": "3",
+          "del_flag": 0,
+          "is_null_value": null,
+          "limited_year": null,
+          "indicator_name": null
+        },
+        {
+          "id": 208648,
+          "report_id": null,
+          "template_id": null,
+          "sheet_id": null,
+          "sheet_num": null,
+          "cell_id": null,
+          "item_id": 32,
+          "item_name": "本外币存款：当月增量：同比多增",
+          "item_code": null,
+          "filed_name": null,
+          "item_unit": "亿元",
+          "item_val": "2.6",
+          "yea": "2024",
+          "quart": null,
+          "mon": "2024-01",
+          "source": "模拟数据",
+          "time_type": "3",
+          "del_flag": 0,
+          "is_null_value": null,
+          "limited_year": null,
+          "indicator_name": null
+        }
+      ],
+      "schema": "test_ybj"
+    }
+  }
+}

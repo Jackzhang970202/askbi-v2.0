@@ -1,0 +1,47 @@
+{
+    "说明": "这是列映射配置文件，用于将Excel列名映射到大屏需要的字段名",
+
+    "员工基本信息": {
+        "员工工号": "empId",
+        "姓名": "name",
+        "考勤地": "location"
+    },
+
+    "出勤数据": {
+        "应出勤天数": "shouldAttend",
+        "实际出勤天数": "actualAttend"
+    },
+
+    "出差数据": {
+        "出差天数": "bizTripDays",
+        "出差率": "bizTripRate"
+    },
+
+    "考勤异常": {
+        "迟到次数": "lateTimes",
+        "请假天数": "leaveDays",
+        "补签次数": "makeupTimes"
+    },
+
+    "打卡时间": {
+        "平均上班打卡时间": "avgClockIn",
+        "平均下班打卡时间": "avgClockOut"
+    },
+
+    "效率数据": {
+        "周末出勤率": "weekendRate",
+        "加班率": "overtimeRate"
+    },
+
+    "贡献时长": {
+        "平时贡献时长": "normalContrib",
+        "周末贡献时长": "weekendContrib",
+        "节假日贡献时长": "holidayContrib",
+        "总贡献时长": "totalContrib"
+    },
+
+    "其他": {
+        "产假天数": "maternityDays",
+        "是否问题人员": "isProblem"
+    }
+}

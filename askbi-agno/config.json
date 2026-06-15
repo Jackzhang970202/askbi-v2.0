@@ -1,0 +1,69 @@
+{
+    "model": "qwen3.6-plus",
+    "api_key": "sk-cc5595bd06a04208996dbd4e5ee1b089",
+    "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    "backend_api_url": "http://127.0.0.1:8013",
+    "db_config": {
+        "host": "172.22.4.4",
+        "port": 8341,
+        "dbname": "postgres",
+        "user": "postgres",
+        "password": "postgres",
+        "database_schema": "jiceng"
+    },
+    "app_db_config": {
+        "host": "172.22.4.4",
+        "port": 8341,
+        "dbname": "postgres",
+        "user": "postgres",
+        "password": "postgres",
+        "database_schema": "askbi_table"
+    },
+    "memory": {
+        "provider": "mem0",
+        "db_provider": "postgres",
+        "db_url": "postgresql+psycopg://postgres:postgres@172.22.4.4:8341/postgres",
+        "memory_table": "agent_memories",
+        "enable_agentic_memory": true,
+        "update_memory_on_run": true,
+        "mem0_mode": "oss",
+        "mem0_infer": true,
+        "mem0_config": {
+            "vector_store": {
+                "provider": "milvus",
+                "config": {
+                    "collection_name": "askbi_mem0",
+                    "embedding_model_dims": 1024,
+                    "url": "http://172.22.4.236:11004",
+                    "token": "",
+                    "db_name": "default"
+                }
+            },
+            "llm": {
+                "provider": "openai",
+                "config": {
+                    "model": "qwen3.6-plus",
+                    "api_key": "sk-cc5595bd06a04208996dbd4e5ee1b089",
+                    "openai_base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1"
+                }
+            },
+            "embedder": {
+                "provider": "openai",
+                "config": {
+                    "model": "text-embedding-v4",
+                    "embedding_dims": 1024,
+                    "api_key": "sk-3129ed81a9fd4b33b0043d466bfaedf2",
+                    "openai_base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1"
+                }
+            },
+            "history_db_path": "D:/ccworkcreat/zdata-agent-local/askbi-agno/data/memory_sqlite/mem0_history.db"
+        },
+        "profile_store": {
+            "provider": "sqlite",
+            "db_path": "D:/ccworkcreat/zdata-agent-local/askbi-agno/data/memory_sqlite/memory_profile.db",
+            "session_ttl_hours": 24,
+            "enable_mem0_sync": true,
+            "enable_event_logging": true
+        }
+    }
+}

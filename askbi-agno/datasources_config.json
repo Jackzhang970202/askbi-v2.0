@@ -1,0 +1,99 @@
+{
+  "测试pg": {
+    "type": "pgsql",
+    "config": {
+      "host": "172.22.4.4",
+      "port": 8341,
+      "dbname": "postgres",
+      "user": "postgres",
+      "password": "postgres",
+      "database_schema": "jiceng"
+    },
+    "knowledge_id": "0",
+    "created_at": "/app",
+    "active": true
+  },
+  "测试excel": {
+    "type": "excel",
+    "config": {
+      "files": [
+        "大数据平台研发部工作量统计（AI）.xlsx"
+      ],
+      "file_configs": {
+        "大数据平台研发部工作量统计（AI）.xlsx": {
+          "table_header_rows": "2",
+          "sub_name_rows": "1"
+        }
+      },
+      "file_dir": "/app/datasources/excel_files/测试excel"
+    },
+    "knowledge_id": "0",
+    "created_at": "/app",
+    "active": true
+  },
+  "z1": {
+    "type": "excel",
+    "config": {
+      "files": [
+        "2025年2月.xls",
+        "2025年3月.xlsx"
+      ],
+      "file_configs": {
+        "2025年2月.xls": {
+          "table_header_rows": "5-8",
+          "sub_name_rows": "4"
+        },
+        "2025年3月.xlsx": {
+          "table_header_rows": "5-8",
+          "sub_name_rows": "4"
+        }
+      },
+      "file_dir": "/app/datasources/excel_files/admin/z1"
+    },
+    "knowledge_id": "0",
+    "owner_id": null,
+    "created_at": "/app",
+    "active": true
+  },
+  "user_1:测试2": {
+    "type": "excel",
+    "config": {
+      "files": [
+        "2025年2月.xlsx",
+        "2025年3月.xlsx"
+      ],
+      "file_configs": {
+        "2025年2月.xlsx": {
+          "table_header_rows": "5-8",
+          "sub_name_rows": "4"
+        },
+        "2025年3月.xlsx": {
+          "table_header_rows": "5-8",
+          "sub_name_rows": "4"
+        }
+      },
+      "file_dir": "D:\\ccworkcreat\\zdata-agent-local\\askbi-agno\\datasources\\excel_files\\user_1\\测试2"
+    },
+    "knowledge_id": "0",
+    "owner_id": 1,
+    "created_at": "D:\\ccworkcreat\\zdata-agent-local\\askbi-agno",
+    "active": true,
+    "is_cross_schema": false
+  },
+  "user_1:甬金通测试": {
+    "type": "mysql",
+    "config": {
+      "host": "172.22.4.31",
+      "port": 3306,
+      "dbname": "test_ybj",
+      "user": "root",
+      "password": "123456",
+      "database_schema": ""
+    },
+    "knowledge_id": "0",
+    "owner_id": 1,
+    "created_at": "D:\\ccworkcreat\\zdata-agent-local\\askbi-agno",
+    "active": true,
+    "is_cross_schema": false
+  }
+}

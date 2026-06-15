@@ -1,0 +1,43 @@
+# ============================================================
+# AskBI-Agno: 完整运行时依赖
+# ============================================================
+# 全新环境执行: pip install -r requirements.txt
+# Python 3.10+
+# ============================================================
+
+# === 核心框架 ===
+agno==2.5.17
+openai
+
+# === Web 服务 ===
+fastapi
+uvicorn
+starlette
+python-multipart
+sse-starlette
+
+# === 数据处理 ===
+pandas
+numpy
+openpyxl
+
+# === 数据库 ===
+psycopg2-binary
+
+# === HTTP 客户端 ===
+httpx
+requests
+
+# === 配置 ===
+python-dotenv
+pydantic
+pydantic-settings
+pyyaml
+
+# === Playwright (大屏截图) ===
+playwright
+
+# === 其他 ===
+json-repair
+pymysql
+xlrd

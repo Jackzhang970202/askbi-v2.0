@@ -1,0 +1,147 @@
+全局知识规则模板
+
+一、数据隐私与安全规则
+  严禁泄露任何敏感数据或个人隐私信息。
+  所有数据分析和报告必须符合国家及企业数据安全规范。
+  报告中不得出现真实的数据库表名、字段名、IP地址、账号等技术标识。
+  所有输出内容需经过脱敏处理，确保无法反向推导原始数据。
+
+二、报告输出规范
+  报告内容必须客观、专业、简洁，仅陈述事实与数据结论。
+  禁止使用建议性、引导性或推测性语句，例如“建议优化”“可以考虑”“可能由于”等。
+  不得包含主观评价、个人观点或未验证的假设。
+  数值结果保留合理精度，避免过度精确造成误导。
+
+三、技术实现约束
+  所有生成的 SQL 查询必须基于预定义白名单中的抽象表和字段。
+  图表输出必须采用标准 ECharts 格式，且不包含原始数据点明细。
+  代码执行环境需隔离，禁止动态执行未经审核的脚本。
+  所有查询默认添加时间范围限制（如最近三年），防止全表扫描。
+
+四、元数据映射规则
+
+  表描述映射（抽象表名 对应 业务含义）
+    employee_core：员工主信息表，记录员工基本信息及在职状态。
+    attendance_log：考勤日志表，记录每日出勤、缺勤、请假等状态。
+    org_structure：组织架构表，描述部门层级与归属关系。
+    payroll_summary：薪酬汇总表，按月记录员工薪资结构（不含明细）。
+
+  字段描述映射（按表列出字段及其业务含义）
+    employee_core
+      emp_id：员工唯一标识（对外展示为“员工编号”）
+      join_date：入职日期
+      leave_date：离职日期（为空表示当前在职）
+      dept_id：所属部门标识
+
+    attendance_log
+      emp_id：员工唯一标识
+      work_date：工作日期
+      status：当日出勤状态，如“正常”“缺勤”“请假”
+
+    org_structure
+      dept_id：部门唯一标识
+      dept_name：部门名称
+      parent_dept_id：上级部门标识
+
+五、业务逻辑与表关联规则
+  人员流动性分析 关联表：employee_core
+  部门人力分布分析 关联表：employee_core, org_structure
+  月度出勤率分析 关联表：attendance_log, employee_core
+  组织效能指标分析 关联表：org_structure, payroll_summary
+
+六、同义词配置
+  员工、职员、人员、雇员 → 统一指向 employee_core 表中的 emp_id
+  部门、团队、组织单元 → 统一指向 org_structure 表中的 dept_name
+  出勤、打卡、上班记录 → 统一指向 attendance_log 表
+  入职、加入公司、新进 → 指 join_date 字段
+  离职、离开、退出 → 指 leave_date 字段
+  异常、异常情况、问题记录 → 指 status 为“缺勤”或“迟到”的记录
+
+七、专业名词与指标口径
+  人员流动性：指报告期内新入职人数与离职人数之和占期初总人数的比例，此处简化为仅统计新入职人数趋势。
+  在职人数：指 leave_date 为空 或 leave_date 大于当前日期的员工数量。
+  出勤异常率：指在指定时间段内，status 为“缺勤”或“迟到”的记录数占总记录数的比例。
+  本月：指从当月1日00:00:00至当前系统日期23:59:59的时间范围。
+  上月：指上一个自然月的完整日期范围。
+  年初至今：指从当年1月1日到当前日期的数据。
+
+八、业务逻辑特殊规则
+  当用户提问中包含“本月”时，时间条件应限定为本月1日至今天（含）。
+  当用户提问中包含“最近30天”时，时间条件应为 CURRENT_DATE - 30 至 CURRENT_DATE。
+  若未明确时间范围，默认使用最近12个月的数据。
+  “部门人数”默认指当前在职人数，需排除已离职员工。
+  “异常”在考勤上下文中特指 status 值为“缺勤”或“迟到”。
+
+九、样例库
+
+  问题：这个月有多少人入职？
+  预期SQL：
+    SELECT COUNT(*) AS new_hires
+    FROM employee_core
+    WHERE join_date >= DATE_TRUNC('month', CURRENT_DATE)
+      AND join_date <= CURRENT_DATE
+
+  问题：各部门目前有多少人在职？
+  预期SQL：
+    SELECT o.dept_name, COUNT(e.emp_id) AS headcount
+    FROM employee_core e
+    JOIN org_structure o ON e.dept_id = o.dept_id
+    WHERE e.leave_date IS NULL OR e.leave_date > CURRENT_DATE
+    GROUP BY o.dept_name
+
+  问题：上个月的考勤异常率是多少？
+  预期SQL：
+    SELECT 
+      ROUND(AVG(CASE WHEN status IN ('缺勤', '迟到') THEN 1 ELSE 0 END), 4) AS anomaly_rate
+    FROM attendance_log
+    WHERE work_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month')
+      AND work_date < DATE_TRUNC('month', CURRENT_DATE)
+
+  问题：今年新招了多少人？
+  预期SQL：
+    SELECT COUNT(*) AS new_hires_ytd
+    FROM employee_core
+    WHERE join_date >= DATE_TRUNC('year', CURRENT_DATE)
+      AND join_date <= CURRENT_DATE
+
+  问题：研发部最近30天的缺勤次数？
+  预期SQL：
+    SELECT COUNT(*) AS absence_count
+    FROM attendance_log a
+    JOIN employee_core e ON a.emp_id = e.emp_id
+    JOIN org_structure o ON e.dept_id = o.dept_id
+    WHERE o.dept_name = '研发部'
+      AND a.status = '缺勤'
+      AND a.work_date >= CURRENT_DATE - INTERVAL '30 days'
+
+十、自然语言关键词到标准查询映射
+
+  关键词：人员流动性
+  业务含义：统计各年度新入职人数趋势
+  标准查询：
+    SELECT 
+      EXTRACT(YEAR FROM join_date) AS year, 
+      COUNT(*) AS new_hires 
+    FROM employee_core 
+    WHERE join_date IS NOT NULL 
+    GROUP BY year 
+    ORDER BY year
+
+  关键词：当前在职人数
+  业务含义：统计截至当前仍在职的员工总数
+  标准查询：
+    SELECT COUNT(*) AS current_headcount 
+    FROM employee_core 
+    WHERE leave_date IS NULL OR leave_date > CURRENT_DATE
+
+  关键词：部门出勤异常率
+  业务含义：按部门统计近30天内缺勤或迟到比例
+  标准查询：
+    SELECT 
+      o.dept_name,
+      ROUND(AVG(CASE WHEN a.status IN ('缺勤', '迟到') THEN 1 ELSE 0 END), 4) AS anomaly_rate
+    FROM attendance_log a
+    JOIN employee_core e ON a.emp_id = e.emp_id
+    JOIN org_structure o ON e.dept_id = o.dept_id
+    WHERE a.work_date >= CURRENT_DATE - INTERVAL '30 days'
+    GROUP BY o.dept_name

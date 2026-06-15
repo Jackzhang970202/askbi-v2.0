@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  askbi-etcd-2:
+    image: quay.m.daocloud.io/coreos/etcd:v3.5.5
+    container_name: askbi-etcd-2
+    environment:
+      ETCD_AUTO_COMPACTION_MODE: revision
+      ETCD_AUTO_COMPACTION_RETENTION: "1000"
+      ETCD_QUOTA_BACKEND_BYTES: "4294967296"
+      ETCD_SNAPSHOT_COUNT: "50000"
+    command: >
+      etcd
+      -advertise-client-urls=http://127.0.0.1:10001
+      -listen-client-urls=http://0.0.0.0:10001
+      --data-dir=/etcd
+    volumes:
+      - ./volumes_2/etcd:/etcd
+    ports:
+      - "11001:11001"
+
+  askbi-minio-2:
+    image: docker.m.daocloud.io/minio/minio:RELEASE.2023-03-20T20-16-18Z
+    container_name: askbi-minio-2
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    command: minio server /minio_data --console-address ":10003"
+    volumes:
+      - ./volumes_2/minio:/minio_data
+    ports:
+      - "11002:9000"
+      - "11003:11003"
+
+  askbi-milvus-2:
+    image: docker.m.daocloud.io/milvusdb/milvus:v2.5.10
+    container_name: askbi-milvus-2
+    command: ["milvus", "run", "standalone"]
+    environment:
+      ETCD_ENDPOINTS: askbi-etcd-2:10001
+      MINIO_ADDRESS: askbi-minio-2:9000
+    volumes:
+      - ./volumes_2/milvus:/var/lib/milvus
+    ports:
+      - "11004:19530"
+      - "11005:9091"
+    depends_on:
+      - askbi-etcd-2
+      - askbi-minio-2
